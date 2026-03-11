@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Referest</title>
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+
+      <!-- Неавторизован -->
+      <section id="unauthSection">
+        <div class="brand">
+          <img src="../img/icons/logo.svg" alt="Referest" class="brand-logo" />
+          <span class="brand-name">Referest</span>
+        </div>
+        <h1 class="brand-title">Вход</h1>
+
+        <p id="statusMsg" class="status-msg" hidden></p>
+
+        <form id="loginForm">
+          <div class="field">
+            <label class="label" for="emailInput">Email</label>
+            <input
+              id="emailInput"
+              class="input"
+              type="email"
+              placeholder="you@example.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+          <div class="field">
+            <label class="label" for="passwordInput">Пароль</label>
+            <input
+              id="passwordInput"
+              class="input"
+              type="password"
+              placeholder="••••••"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+          <button id="loginBtn" class="btn btn-primary btn-full" type="submit">
+            Войти
+          </button>
+        </form>
+
+        <div class="divider"><span>или</span></div>
+
+        <div class="oauth-row">
+          <!-- Google -->
+          <button id="googleBtn" class="btn btn-icon" type="button" title="Войти через Google">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.6 10.23c0-.68-.06-1.36-.18-2H10v3.79h5.46a4.67 4.67 0 0 1-2.02 3.07v2.55h3.27c1.91-1.76 3.01-4.36 3.01-7.41" fill="#4285F4"/>
+              <path d="M10 20c2.74 0 5.04-.9 6.72-2.45l-3.27-2.55c-.91.61-2.07.97-3.45.97-2.65 0-4.9-1.79-5.7-4.2H.94v2.63A10 10 0 0 0 10 20" fill="#34A853"/>
+              <path d="M4.3 11.77A6.01 6.01 0 0 1 4 10c0-.62.1-1.22.3-1.77V5.6H.94A10 10 0 0 0 0 10c0 1.61.39 3.14 1.06 4.4l3.24-2.63" fill="#FBBC05"/>
+              <path d="M10 3.97c1.5 0 2.84.51 3.9 1.53l2.92-2.92A10 10 0 0 0 10 0 10 10 0 0 0 .94 5.6L4.3 8.23C5.1 5.82 7.35 3.97 10 3.97" fill="#EA4335"/>
+            </svg>
+          </button>
+
+          <!-- Yandex -->
+          <button id="yandexBtn" class="btn btn-icon" type="button" title="Войти через Яндекс">
+            <img src="../img/icons/ya_icon.svg" width="24" height="24" alt="Яндекс" />
+          </button>
+        </div>
+
+        <p class="signup-hint">
+          Нет аккаунта?
+          <a id="signupLink" class="signup-link" href="#">Зарегистрироваться</a>
+        </p>
+        <p class="policy-hint">
+          <a id="policyLink" class="policy-link" href="#">Политика конфиденциальности</a>
+        </p>
+      </section>
+
+      <!-- Авторизован -->
+      <section id="authSection" hidden>
+        <header class="auth-header">
+          <div class="brand">
+            <img src="../img/icons/logo.svg" alt="Referest" class="brand-logo" />
+            <span class="brand-name">Referest</span>
+          </div>
+          <div class="auth-user">
+            <button id="avatarBtn" class="avatar-btn" type="button" title="Перейти в профиль">
+              <img id="avatarImg" class="avatar-img" alt="" hidden />
+              <span id="avatarFallback" class="avatar-fallback" hidden></span>
+            </button>
+            <span id="userNicknameLabel" class="user-nickname"></span>
+            <button id="logoutBtn" class="btn btn-ghost btn-icon-sm" type="button" title="Выйти">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="capture-row">
+          <button id="captureViewportBtn" class="btn capture-btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <span>Страница</span>
+            <kbd id="captureViewportKbd" class="capture-kbd"></kbd>
+          </button>
+          <button id="captureAreaBtn" class="btn capture-btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="4 9 4 4 9 4"/>
+              <polyline points="15 4 20 4 20 9"/>
+              <polyline points="20 15 20 20 15 20"/>
+              <polyline points="9 20 4 20 4 15"/>
+            </svg>
+            <span>Область</span>
+            <kbd id="captureAreaKbd" class="capture-kbd"></kbd>
+          </button>
+        </div>
+
+        <div id="gridState" class="grid-state">
+          <p id="gridLoading" class="grid-hint">Загрузка…</p>
+          <p id="gridEmpty" class="grid-hint" hidden>На странице нет изображений</p>
+          <div id="gridToolbar" class="grid-toolbar" hidden>
+            <button id="selectAllBtn" class="btn btn-ghost btn-sm" type="button">Выбрать все</button>
+            <div class="size-filter">
+              <button class="size-filter-btn is-active" data-min="0">Все</button>
+              <button class="size-filter-btn" data-min="200">≥200px</button>
+              <button class="size-filter-btn" data-min="400">≥400px</button>
+              <button class="size-filter-btn" data-min="1000">≥1000px</button>
+            </div>
+          </div>
+          <div class="grid-scroll">
+            <div id="imageGrid" class="image-grid" hidden></div>
+          </div>
+        </div>
+
+        <div id="saveBar" class="save-bar" hidden>
+          <div class="save-bar-row">
+            <div class="collection-select-wrap">
+              <button id="collectionSelectBtn" class="btn collection-select-btn" type="button">
+                <span id="collectionSelectLabel">Без коллекции</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"/>
+                </svg>
+              </button>
+              <div id="collectionDropdown" class="collection-dropdown" hidden></div>
+            </div>
+            <button id="saveSelectedBtn" class="btn btn-primary save-btn" type="button">Сохранить</button>
+          </div>
+        </div>
+
+        <p id="saveStatusMsg" class="status-msg" hidden></p>
+      </section>
+
+    </main>
+
+    <script type="module" src="./popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "manifest_version": 3,
+  "name": "Referest",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAob+agowKSfC2tJaMCG+3TiI0RtDuaN8pjMV5yf/X1g9iSmzvhwG+xztuagJ6JeDW9uOGsKwfGvsNCaBiIlkvq6JKPv/79ITuUh1MSWyuuS3jXoJqUTg0uoUzEhVniM0bmzK//VQhGdahGUIccePCxwsLLe15Cb+oiI24o91hgER+DjyGk/zJP/2AAdyQnCWMnf4e2WysMdi4IfkUTrRvQiNRQKpzoBAKg9N8bjrBfp5KlZHA1I00KMZzvGqUkzy5jgoIwTT3n/Ae3JRiE55sBRaBzgmP5C6syMcJHNk+/CLn+ip6FPyJOZ9+jOMmPpC6gtEvSUWN9JdotEWK64oDxQIDAQAB",
+  "description": "Сохраняйте изображения с любого сайта в Referest одним кликом. Коллекции, скриншоты страниц и удобная фильтрация.",
+  "version": "1.0.0",
+  "minimum_chrome_version": "102",
+  "homepage_url": "https://referest.ru",
+  "permissions": ["storage", "activeTab", "scripting", "identity", "alarms", "tabs", "contextMenus", "notifications"],
+  "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [
+    {
+      "resources": ["src/img/icons/logo.svg"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "icons": {
+    "32": "src/img/icons/icon-32x32.png",
+    "48": "src/img/icons/icon-48x48.png",
+    "96": "src/img/icons/icon-96x96.png",
+    "128": "src/img/icons/icon-128x128.png"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Referest — сохранить изображения",
+    "default_icon": {
+      "32": "src/img/icons/icon-32x32.png",
+      "48": "src/img/icons/icon-48x48.png",
+      "128": "src/img/icons/icon-128x128.png"
+    },
+    "default_popup": "src/popup/popup.html"
+  },
+  "externally_connectable": {
+    "matches": ["*://referest.ru/*", "*://*.referest.ru/*"]
+  },
+  "commands": {
+    "capture-viewport": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Скриншот страницы → Referest"
+    },
+    "capture-area": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X",
+        "mac": "Command+Shift+X"
+      },
+      "description": "Выделить область → Referest"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "exclude_matches": ["*://referest.ru/*", "*://*.referest.ru/*"],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
